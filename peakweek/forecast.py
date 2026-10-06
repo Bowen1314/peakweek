@@ -80,15 +80,12 @@ def query_rows(lat: float, lon: float, elevation_m: float, days: list[dt.date], 
     return rows
 
 
-def forecast(lat: float, lon: float, place_name: str | None = None, today: dt.date | None = None, *,
-             classifier=None, weather_daily: pd.DataFrame | None = None, elevation_m: float | None = None,
-             context: pd.DataFrame | None = None, clim_curve: np.ndarray | None = None,
-             model_config: dict | None = None) -> dict:
-    """See docs/CONTRACT.md. Keyword-only arguments allow injecting a classifier (any object with fit,
-    predict_proba and classes_), weather, elevation, context pool and climatology (for tests)."""
-    t_start = time.time()
+def prepare_point(lat: float, lon: float, today: dt.date, *, weather_daily: pd.DataFrame | None = None,
+                  elevation_m: float | None = None, clim_curve: np.ndarray | None = None) -> dict:
+    """Everything forecast() needs before the model runs, for one point: the 120 query rows and the
+    weather / grid-cell metadata. Shared by forecast() and the daily site build (scripts/build_site.py),
+    which predicts many points' rows in one batch."""
     lat, lon = float(lat), float(lon)
-    today = today or weather.local_today()
     days = [today + dt.timedelta(days=i) for i in range(N_DAYS)]
 
     if elevation_m is None:
@@ -104,19 +101,21 @@ def forecast(lat: float, lon: float, place_name: str | None = None, today: dt.da
         clim_curve, clim_source = climatology_curve_for(lat, lon, clim_table)
 
     rows = query_rows(lat, lon, elevation_m, days, weather_daily, clim_curve)
-    pool = context if context is not None else _context_pool()
-    cfg = dict(LOCKED_CONFIG, **(model_config or {}))
-    factory = (lambda: classifier) if classifier is not None else None
-    model = PeakweekModel(clf_factory=factory, **cfg).fit(pool)
-    t_model = time.time()
-    P = model.predict_proba(rows)
-    model_seconds = time.time() - t_model
+    return {"lat": lat, "lon": lon, "today": today, "days": days, "elevation_m": elevation_m, "rows": rows,
+            "wx_meta": wx_meta, "clim_source": clim_source, "cell": (clat, clon, cid)}
 
+
+def result_from(prep: dict, P: np.ndarray, place_name: str | None, *, model_name: str, context_rows: int,
+                cfg: dict, seconds: float | None, wall_seconds: float | None) -> dict:
+    """The forecast() result dict (docs/CONTRACT.md) for one prepared point and its predicted
+    probabilities P (one row per prep["rows"] row, columns green / colored / bare)."""
+    lat, lon, days, rows = prep["lat"], prep["lon"], prep["days"], prep["rows"]
+    elevation_m = prep["elevation_m"]
+    clat, clon, cid = prep["cell"]
     inside = config.in_region(lat, lon)
     note = config.REGION_NOTE
     if not inside:
         note += " This location is outside that box, so these probabilities are an extrapolation."
-    ctx_rows = sorted({len(c) for _, c, _ in model.contexts(rows)}) if hasattr(model, "pool") else []
 
     species_out = []
     for s in SPECIES:
@@ -135,22 +134,53 @@ def forecast(lat: float, lon: float, place_name: str | None = None, today: dt.da
         "in_region": bool(inside),
         "region_note": note,
         "generated_at": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-        "today": today.isoformat(),
+        "today": prep["today"].isoformat(),
         "days": [d.isoformat() for d in days],
         "model": {
-            "name": TABPFN_NAME if classifier is None else f"injected {type(classifier).__name__}",
-            "context_rows": int(max(ctx_rows)) if ctx_rows else int(cfg["n_context"]),
-            "seconds": round(model_seconds, 1),
-            "wall_seconds": round(time.time() - t_start, 1),
+            "name": model_name,
+            "context_rows": int(context_rows),
+            "seconds": None if seconds is None else round(seconds, 1),
+            "wall_seconds": None if wall_seconds is None else round(wall_seconds, 1),
             "training_data": "iNaturalist Leaves annotations, 2018-2025",
             "strategy": cfg["strategy"], "n_estimators": cfg["n_estimators"], "n_subsamples": cfg["n_subsamples"],
             "feature_set": cfg["feature_set"],
             "attribution": "Built with PriorLabs-TabPFN",
         },
         "weather": {"source": "Open-Meteo forecast API (past days from the Open-Meteo ERA5 archive where available)",
-                    "past_days": PAST_DAYS, "forecast_days": FORECAST_DAYS, **wx_meta,
+                    "past_days": PAST_DAYS, "forecast_days": FORECAST_DAYS, **prep["wx_meta"],
                     "grid_cell": {"cell_id": cid, "deg": config.GRID_DEG, "weather_lat": clat, "weather_lon": clon},
-                    "climatology": clim_source,
+                    "climatology": prep["clim_source"],
                     "attribution": "Weather data by Open-Meteo.com (CC BY 4.0)"},
         "species": species_out,
     }
+
+
+def context_rows_used(model: PeakweekModel, rows: pd.DataFrame, cfg: dict) -> int:
+    ctx_rows = sorted({len(c) for _, c, _ in model.contexts(rows)}) if hasattr(model, "pool") else []
+    return int(max(ctx_rows)) if ctx_rows else int(cfg["n_context"])
+
+
+def forecast(lat: float, lon: float, place_name: str | None = None, today: dt.date | None = None, *,
+             classifier=None, weather_daily: pd.DataFrame | None = None, elevation_m: float | None = None,
+             context: pd.DataFrame | None = None, clim_curve: np.ndarray | None = None,
+             model_config: dict | None = None) -> dict:
+    """See docs/CONTRACT.md. Keyword-only arguments allow injecting a classifier (any object with fit,
+    predict_proba and classes_), weather, elevation, context pool and climatology (for tests)."""
+    t_start = time.time()
+    today = today or weather.local_today()
+    prep = prepare_point(lat, lon, today, weather_daily=weather_daily, elevation_m=elevation_m,
+                         clim_curve=clim_curve)
+    rows = prep["rows"]
+    pool = context if context is not None else _context_pool()
+    cfg = dict(LOCKED_CONFIG, **(model_config or {}))
+    factory = (lambda: classifier) if classifier is not None else None
+    model = PeakweekModel(clf_factory=factory, **cfg).fit(pool)
+    t_model = time.time()
+    P = model.predict_proba(rows)
+    model_seconds = time.time() - t_model
+
+    return result_from(
+        prep, P, place_name,
+        model_name=TABPFN_NAME if classifier is None else f"injected {type(classifier).__name__}",
+        context_rows=context_rows_used(model, rows, cfg), cfg=cfg,
+        seconds=model_seconds, wall_seconds=time.time() - t_start)

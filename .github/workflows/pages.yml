@@ -1,0 +1,79 @@
+# Daily static site: precompute every grid cell's forecast with TabPFN on the runner's CPU, publish to
+# GitHub Pages. No server and no secrets: Open-Meteo, the TabPFN v2 weights and GitHub Pages need no key.
+# A failed build publishes nothing, so Pages keeps serving the previous day's site.
+name: Daily forecast site
+
+on:
+  schedule:
+    - cron: "17 10 * * *"   # about 06:17 in New York (EDT); the build uses the New York date
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    env:
+      TABPFN_MODEL_CACHE_DIR: ${{ github.workspace }}/.tabpfn-models
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: |
+            requirements.txt
+            .github/workflows/pages.yml
+
+      - name: Install CPU-only torch, TabPFN and the core dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -r requirements.txt "tabpfn==9.1.0"
+
+      - name: Cache the TabPFN v2 weights
+        uses: actions/cache@v6
+        with:
+          path: ${{ env.TABPFN_MODEL_CACHE_DIR }}
+          key: tabpfn-v2-clf-${{ runner.os }}-tabpfn-9.1.0
+
+      - name: Tests (fake classifier, no network)
+        run: python -m unittest discover -s tests -t .
+
+      - name: Build the site (weather, one batched TabPFN prediction, batch = single-point check)
+        run: python scripts/build_site.py --out _site --report build-report
+
+      - name: Upload the build report (check.json, build.json)
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: build-report
+          path: build-report
+          if-no-files-found: ignore
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
