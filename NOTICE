@@ -1,0 +1,31 @@
+peakweek
+========
+
+Built with PriorLabs-TabPFN.
+
+Model
+-----
+peakweek's predictions come from the TabPFN v2 classifier (open weights, checkpoint
+"tabpfn-v2-classifier-finetuned-zk73skhh.ckpt" from the Hugging Face repository Prior-Labs/TabPFN-v2-clf),
+run locally on CPU through the `tabpfn` Python package. The weights are downloaded by the `tabpfn` package
+at runtime; they are not redistributed in this repository.
+
+TabPFN v2 is licensed under the Prior Labs License, Version 1.1 (Apache 2.0 plus an attribution
+requirement, Paragraph 10). A copy of the license is included in licenses/PriorLabs-License-1.1.txt.
+Paragraph 10 requires that any website, user interface, blog post, about page or product documentation
+of a product or service using the model prominently displays "Built with PriorLabs-TabPFN".
+
+  Hollmann, N., Muller, S., Purucker, L. et al. Accurate predictions on small data with a tabular
+  foundation model. Nature 637, 319-326 (2025).
+
+Data
+----
+- Observations: iNaturalist (https://www.inaturalist.org), via the public API v1. Each observation in
+  data/observations.csv keeps its iNaturalist id and the observer-chosen license (license_code); only
+  observations with a non-null license are included. Observation pages: https://www.inaturalist.org/observations/<obs_id>
+- Weather: Open-Meteo.com (https://open-meteo.com/), CC BY 4.0. Historical data from the Open-Meteo
+  archive API (ERA5 / ERA5-Land reanalysis, Copernicus Climate Change Service); live data from the
+  Open-Meteo forecast API. "Weather data by Open-Meteo.com".
+- Elevation of training observations: SRTM 90 m (NASA/USGS, public domain) via the OpenTopoData public API
+  (https://www.opentopodata.org). Elevation of forecast locations: Open-Meteo elevation API (Copernicus DEM
+  GLO-90).

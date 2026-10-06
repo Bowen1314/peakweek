@@ -1,0 +1,205 @@
+{
+ "pulled_on": "2026-10-06",
+ "inat_query": {
+  "term_id": 36,
+  "d1": "2018-01-01",
+  "d2": "2025-12-31",
+  "month": "9,10,11",
+  "bbox": {
+   "lat_min": 38.5,
+   "lat_max": 47.5,
+   "lon_min": -80.5,
+   "lon_max": -66.9
+  },
+  "taxa": [
+   48098,
+   52543,
+   49658,
+   49005,
+   49202,
+   54802,
+   54795,
+   54763
+  ]
+ },
+ "inat_outcomes_total": {
+  "captive_or_cultivated": 879,
+  "ok": 8390,
+  "casual": 52,
+  "obscured": 244,
+  "conflicting_leaves": 856,
+  "positional_accuracy_gt_1000m": 455,
+  "no_usable_leaves_value": 1
+ },
+ "inat_outcomes_by_taxon": {
+  "48098": {
+   "captive_or_cultivated": 447,
+   "ok": 2441,
+   "casual": 21,
+   "obscured": 83,
+   "conflicting_leaves": 279,
+   "positional_accuracy_gt_1000m": 142
+  },
+  "52543": {
+   "positional_accuracy_gt_1000m": 49,
+   "ok": 1156,
+   "casual": 6,
+   "captive_or_cultivated": 107,
+   "conflicting_leaves": 119,
+   "obscured": 30,
+   "no_usable_leaves_value": 1
+  },
+  "49658": {
+   "ok": 218,
+   "captive_or_cultivated": 61,
+   "positional_accuracy_gt_1000m": 21,
+   "conflicting_leaves": 33,
+   "casual": 3,
+   "obscured": 5
+  },
+  "49005": {
+   "ok": 622,
+   "casual": 2,
+   "conflicting_leaves": 49,
+   "positional_accuracy_gt_1000m": 23,
+   "captive_or_cultivated": 20,
+   "obscured": 26
+  },
+  "49202": {
+   "ok": 1538,
+   "conflicting_leaves": 106,
+   "positional_accuracy_gt_1000m": 118,
+   "captive_or_cultivated": 9,
+   "obscured": 54,
+   "casual": 1
+  },
+  "54802": {
+   "ok": 143,
+   "conflicting_leaves": 31,
+   "positional_accuracy_gt_1000m": 15,
+   "obscured": 3,
+   "captive_or_cultivated": 14
+  },
+  "54795": {
+   "ok": 478,
+   "positional_accuracy_gt_1000m": 31,
+   "conflicting_leaves": 130,
+   "obscured": 11,
+   "captive_or_cultivated": 10
+  },
+  "54763": {
+   "ok": 1794,
+   "captive_or_cultivated": 211,
+   "positional_accuracy_gt_1000m": 56,
+   "obscured": 32,
+   "casual": 19,
+   "conflicting_leaves": 109
+  }
+ },
+ "labeled": 8390,
+ "dropped_null_license": 1740,
+ "kept": 6650,
+ "feature_rows": 6650,
+ "grid_deg": 1.0,
+ "n_cells": 103,
+ "n_cell_years": 824,
+ "openmeteo": {
+  "total_weight": 6556.0,
+  "requests": 838,
+  "by_api": {
+   "elevation": {
+    "requests": 14,
+    "weight": 1200.0
+   },
+   "archive": {
+    "requests": 824,
+    "weight": 5356.0
+   }
+  }
+ },
+ "by_species": {
+  "American beech": {
+   "bare": 117,
+   "colored": 297,
+   "green": 828
+  },
+  "Norway maple": {
+   "bare": 6,
+   "colored": 412,
+   "green": 930
+  },
+  "black gum": {
+   "bare": 4,
+   "colored": 48,
+   "green": 65
+  },
+  "northern red oak": {
+   "bare": 40,
+   "colored": 298,
+   "green": 194
+  },
+  "red maple": {
+   "bare": 99,
+   "colored": 1038,
+   "green": 774
+  },
+  "sassafras": {
+   "bare": 12,
+   "colored": 164,
+   "green": 201
+  },
+  "sugar maple": {
+   "bare": 68,
+   "colored": 501,
+   "green": 374
+  },
+  "sweetgum": {
+   "bare": 1,
+   "colored": 88,
+   "green": 91
+  }
+ },
+ "by_year": {
+  "2018": {
+   "bare": 1,
+   "colored": 19,
+   "green": 33
+  },
+  "2019": {
+   "bare": 3,
+   "colored": 65,
+   "green": 124
+  },
+  "2020": {
+   "bare": 5,
+   "colored": 309,
+   "green": 257
+  },
+  "2021": {
+   "bare": 4,
+   "colored": 127,
+   "green": 262
+  },
+  "2022": {
+   "bare": 14,
+   "colored": 151,
+   "green": 217
+  },
+  "2023": {
+   "bare": 35,
+   "colored": 283,
+   "green": 434
+  },
+  "2024": {
+   "bare": 211,
+   "colored": 1030,
+   "green": 1341
+  },
+  "2025": {
+   "bare": 74,
+   "colored": 862,
+   "green": 789
+  }
+ },
+ "seconds": 4900.8
+}

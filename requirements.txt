@@ -1,0 +1,14 @@
+# Core (dataset build, features, baselines, metrics, tests): Python 3.12
+numpy>=2.0
+pandas>=2.2
+scikit-learn>=1.6
+
+# Model (only on the machine that runs forecasts / the TabPFN backtest).
+# Install the CPU-only torch wheel first so pip does not pull CUDA builds:
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+#   pip install "tabpfn==9.1.0"
+# peakweek only loads the open TabPFN v2 weights (ModelVersion.V2, Prior-Labs/TabPFN-v2-clf on Hugging Face,
+# ~29 MB, ungated). Newer default checkpoints in tabpfn 9.x require a Prior Labs login and are not used.
+# Set TABPFN_MODEL_CACHE_DIR to choose where the weights are cached.
+# torch>=2.4 (CPU wheel)
+# tabpfn==9.1.0

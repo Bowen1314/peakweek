@@ -1,0 +1,11 @@
+.cache/
+.venv/
+__pycache__/
+*.pyc
+# live-check row-level files: observation ids/coordinates without the license filter; only aggregates are published
+eval/live/rows_*.csv
+eval/live/rows_*.meta.json
+eval/live/preds_*.csv
+.DS_Store
+node_modules/
+PROGRESS.md

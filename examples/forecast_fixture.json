@@ -1,0 +1,820 @@
+{
+ "synthetic": true,
+ "synthetic_note": "Hand-made numbers for building and testing the page. Not a model forecast.",
+ "place": {
+  "name": "New Brunswick, NJ",
+  "lat": 40.49,
+  "lon": -74.45,
+  "elevation_m": 26.0
+ },
+ "in_region": true,
+ "region_note": "Trained on the US Northeast and Mid-Atlantic (lat 38.5-47.5, lon -80.5 to -66.9).",
+ "generated_at": "2026-10-06T14:00:00Z",
+ "today": "2026-10-06",
+ "days": [
+  "2026-10-06",
+  "2026-10-07",
+  "2026-10-08",
+  "2026-10-09",
+  "2026-10-10",
+  "2026-10-11",
+  "2026-10-12",
+  "2026-10-13",
+  "2026-10-14",
+  "2026-10-15",
+  "2026-10-16",
+  "2026-10-17",
+  "2026-10-18",
+  "2026-10-19",
+  "2026-10-20"
+ ],
+ "model": {
+  "name": "TabPFN v2 classifier (open weights, CPU)",
+  "context_rows": 1000,
+  "seconds": 21.3,
+  "training_data": "iNaturalist Leaves annotations, 2018-2025"
+ },
+ "weather": {
+  "source": "Open-Meteo forecast API",
+  "past_days": 92,
+  "forecast_days": 16
+ },
+ "species": [
+  {
+   "taxon_id": 48098,
+   "common": "red maple",
+   "scientific": "Acer rubrum",
+   "daily": [
+    {
+     "date": "2026-10-06",
+     "green": 0.606,
+     "colored": 0.365,
+     "bare": 0.029
+    },
+    {
+     "date": "2026-10-07",
+     "green": 0.54,
+     "colored": 0.428,
+     "bare": 0.032
+    },
+    {
+     "date": "2026-10-08",
+     "green": 0.474,
+     "colored": 0.491,
+     "bare": 0.035
+    },
+    {
+     "date": "2026-10-09",
+     "green": 0.41,
+     "colored": 0.55,
+     "bare": 0.04
+    },
+    {
+     "date": "2026-10-10",
+     "green": 0.352,
+     "colored": 0.601,
+     "bare": 0.047
+    },
+    {
+     "date": "2026-10-11",
+     "green": 0.302,
+     "colored": 0.643,
+     "bare": 0.055
+    },
+    {
+     "date": "2026-10-12",
+     "green": 0.259,
+     "colored": 0.675,
+     "bare": 0.066
+    },
+    {
+     "date": "2026-10-13",
+     "green": 0.225,
+     "colored": 0.695,
+     "bare": 0.08
+    },
+    {
+     "date": "2026-10-14",
+     "green": 0.197,
+     "colored": 0.705,
+     "bare": 0.098
+    },
+    {
+     "date": "2026-10-15",
+     "green": 0.176,
+     "colored": 0.703,
+     "bare": 0.121
+    },
+    {
+     "date": "2026-10-16",
+     "green": 0.158,
+     "colored": 0.692,
+     "bare": 0.15
+    },
+    {
+     "date": "2026-10-17",
+     "green": 0.147,
+     "colored": 0.669,
+     "bare": 0.184
+    },
+    {
+     "date": "2026-10-18",
+     "green": 0.136,
+     "colored": 0.638,
+     "bare": 0.226
+    },
+    {
+     "date": "2026-10-19",
+     "green": 0.13,
+     "colored": 0.597,
+     "bare": 0.273
+    },
+    {
+     "date": "2026-10-20",
+     "green": 0.124,
+     "colored": 0.549,
+     "bare": 0.327
+    }
+   ]
+  },
+  {
+   "taxon_id": 52543,
+   "common": "sugar maple",
+   "scientific": "Acer saccharum",
+   "daily": [
+    {
+     "date": "2026-10-06",
+     "green": 0.886,
+     "colored": 0.092,
+     "bare": 0.022
+    },
+    {
+     "date": "2026-10-07",
+     "green": 0.857,
+     "colored": 0.12,
+     "bare": 0.023
+    },
+    {
+     "date": "2026-10-08",
+     "green": 0.82,
+     "colored": 0.155,
+     "bare": 0.025
+    },
+    {
+     "date": "2026-10-09",
+     "green": 0.775,
+     "colored": 0.198,
+     "bare": 0.027
+    },
+    {
+     "date": "2026-10-10",
+     "green": 0.722,
+     "colored": 0.248,
+     "bare": 0.03
+    },
+    {
+     "date": "2026-10-11",
+     "green": 0.66,
+     "colored": 0.305,
+     "bare": 0.035
+    },
+    {
+     "date": "2026-10-12",
+     "green": 0.595,
+     "colored": 0.364,
+     "bare": 0.041
+    },
+    {
+     "date": "2026-10-13",
+     "green": 0.526,
+     "colored": 0.423,
+     "bare": 0.051
+    },
+    {
+     "date": "2026-10-14",
+     "green": 0.46,
+     "colored": 0.475,
+     "bare": 0.065
+    },
+    {
+     "date": "2026-10-15",
+     "green": 0.399,
+     "colored": 0.517,
+     "bare": 0.084
+    },
+    {
+     "date": "2026-10-16",
+     "green": 0.345,
+     "colored": 0.544,
+     "bare": 0.111
+    },
+    {
+     "date": "2026-10-17",
+     "green": 0.3,
+     "colored": 0.552,
+     "bare": 0.148
+    },
+    {
+     "date": "2026-10-18",
+     "green": 0.263,
+     "colored": 0.541,
+     "bare": 0.196
+    },
+    {
+     "date": "2026-10-19",
+     "green": 0.234,
+     "colored": 0.511,
+     "bare": 0.255
+    },
+    {
+     "date": "2026-10-20",
+     "green": 0.212,
+     "colored": 0.462,
+     "bare": 0.326
+    }
+   ]
+  },
+  {
+   "taxon_id": 49658,
+   "common": "sweetgum",
+   "scientific": "Liquidambar styraciflua",
+   "daily": [
+    {
+     "date": "2026-10-06",
+     "green": 0.914,
+     "colored": 0.066,
+     "bare": 0.02
+    },
+    {
+     "date": "2026-10-07",
+     "green": 0.897,
+     "colored": 0.082,
+     "bare": 0.021
+    },
+    {
+     "date": "2026-10-08",
+     "green": 0.877,
+     "colored": 0.102,
+     "bare": 0.021
+    },
+    {
+     "date": "2026-10-09",
+     "green": 0.851,
+     "colored": 0.128,
+     "bare": 0.021
+    },
+    {
+     "date": "2026-10-10",
+     "green": 0.82,
+     "colored": 0.159,
+     "bare": 0.021
+    },
+    {
+     "date": "2026-10-11",
+     "green": 0.783,
+     "colored": 0.195,
+     "bare": 0.022
+    },
+    {
+     "date": "2026-10-12",
+     "green": 0.74,
+     "colored": 0.238,
+     "bare": 0.022
+    },
+    {
+     "date": "2026-10-13",
+     "green": 0.69,
+     "colored": 0.287,
+     "bare": 0.023
+    },
+    {
+     "date": "2026-10-14",
+     "green": 0.637,
+     "colored": 0.34,
+     "bare": 0.023
+    },
+    {
+     "date": "2026-10-15",
+     "green": 0.58,
+     "colored": 0.396,
+     "bare": 0.024
+    },
+    {
+     "date": "2026-10-16",
+     "green": 0.521,
+     "colored": 0.453,
+     "bare": 0.026
+    },
+    {
+     "date": "2026-10-17",
+     "green": 0.464,
+     "colored": 0.509,
+     "bare": 0.027
+    },
+    {
+     "date": "2026-10-18",
+     "green": 0.41,
+     "colored": 0.561,
+     "bare": 0.029
+    },
+    {
+     "date": "2026-10-19",
+     "green": 0.36,
+     "colored": 0.608,
+     "bare": 0.032
+    },
+    {
+     "date": "2026-10-20",
+     "green": 0.317,
+     "colored": 0.648,
+     "bare": 0.035
+    }
+   ]
+  },
+  {
+   "taxon_id": 49005,
+   "common": "northern red oak",
+   "scientific": "Quercus rubra",
+   "daily": [
+    {
+     "date": "2026-10-06",
+     "green": 0.958,
+     "colored": 0.022,
+     "bare": 0.02
+    },
+    {
+     "date": "2026-10-07",
+     "green": 0.955,
+     "colored": 0.025,
+     "bare": 0.02
+    },
+    {
+     "date": "2026-10-08",
+     "green": 0.951,
+     "colored": 0.029,
+     "bare": 0.02
+    },
+    {
+     "date": "2026-10-09",
+     "green": 0.945,
+     "colored": 0.035,
+     "bare": 0.02
+    },
+    {
+     "date": "2026-10-10",
+     "green": 0.938,
+     "colored": 0.042,
+     "bare": 0.02
+    },
+    {
+     "date": "2026-10-11",
+     "green": 0.929,
+     "colored": 0.051,
+     "bare": 0.02
+    },
+    {
+     "date": "2026-10-12",
+     "green": 0.916,
+     "colored": 0.063,
+     "bare": 0.021
+    },
+    {
+     "date": "2026-10-13",
+     "green": 0.901,
+     "colored": 0.078,
+     "bare": 0.021
+    },
+    {
+     "date": "2026-10-14",
+     "green": 0.883,
+     "colored": 0.096,
+     "bare": 0.021
+    },
+    {
+     "date": "2026-10-15",
+     "green": 0.861,
+     "colored": 0.118,
+     "bare": 0.021
+    },
+    {
+     "date": "2026-10-16",
+     "green": 0.833,
+     "colored": 0.145,
+     "bare": 0.022
+    },
+    {
+     "date": "2026-10-17",
+     "green": 0.801,
+     "colored": 0.177,
+     "bare": 0.022
+    },
+    {
+     "date": "2026-10-18",
+     "green": 0.763,
+     "colored": 0.214,
+     "bare": 0.023
+    },
+    {
+     "date": "2026-10-19",
+     "green": 0.721,
+     "colored": 0.256,
+     "bare": 0.023
+    },
+    {
+     "date": "2026-10-20",
+     "green": 0.673,
+     "colored": 0.303,
+     "bare": 0.024
+    }
+   ]
+  },
+  {
+   "taxon_id": 49202,
+   "common": "American beech",
+   "scientific": "Fagus grandifolia",
+   "daily": [
+    {
+     "date": "2026-10-06",
+     "green": 0.963,
+     "colored": 0.017,
+     "bare": 0.02
+    },
+    {
+     "date": "2026-10-07",
+     "green": 0.961,
+     "colored": 0.019,
+     "bare": 0.02
+    },
+    {
+     "date": "2026-10-08",
+     "green": 0.958,
+     "colored": 0.022,
+     "bare": 0.02
+    },
+    {
+     "date": "2026-10-09",
+     "green": 0.955,
+     "colored": 0.025,
+     "bare": 0.02
+    },
+    {
+     "date": "2026-10-10",
+     "green": 0.951,
+     "colored": 0.029,
+     "bare": 0.02
+    },
+    {
+     "date": "2026-10-11",
+     "green": 0.945,
+     "colored": 0.035,
+     "bare": 0.02
+    },
+    {
+     "date": "2026-10-12",
+     "green": 0.938,
+     "colored": 0.042,
+     "bare": 0.02
+    },
+    {
+     "date": "2026-10-13",
+     "green": 0.928,
+     "colored": 0.051,
+     "bare": 0.021
+    },
+    {
+     "date": "2026-10-14",
+     "green": 0.916,
+     "colored": 0.063,
+     "bare": 0.021
+    },
+    {
+     "date": "2026-10-15",
+     "green": 0.902,
+     "colored": 0.077,
+     "bare": 0.021
+    },
+    {
+     "date": "2026-10-16",
+     "green": 0.883,
+     "colored": 0.096,
+     "bare": 0.021
+    },
+    {
+     "date": "2026-10-17",
+     "green": 0.86,
+     "colored": 0.118,
+     "bare": 0.022
+    },
+    {
+     "date": "2026-10-18",
+     "green": 0.833,
+     "colored": 0.145,
+     "bare": 0.022
+    },
+    {
+     "date": "2026-10-19",
+     "green": 0.8,
+     "colored": 0.177,
+     "bare": 0.023
+    },
+    {
+     "date": "2026-10-20",
+     "green": 0.763,
+     "colored": 0.214,
+     "bare": 0.023
+    }
+   ]
+  },
+  {
+   "taxon_id": 54802,
+   "common": "black gum",
+   "scientific": "Nyssa sylvatica",
+   "daily": [
+    {
+     "date": "2026-10-06",
+     "green": 0.178,
+     "colored": 0.661,
+     "bare": 0.161
+    },
+    {
+     "date": "2026-10-07",
+     "green": 0.15,
+     "colored": 0.653,
+     "bare": 0.197
+    },
+    {
+     "date": "2026-10-08",
+     "green": 0.129,
+     "colored": 0.632,
+     "bare": 0.239
+    },
+    {
+     "date": "2026-10-09",
+     "green": 0.112,
+     "colored": 0.6,
+     "bare": 0.288
+    },
+    {
+     "date": "2026-10-10",
+     "green": 0.101,
+     "colored": 0.558,
+     "bare": 0.341
+    },
+    {
+     "date": "2026-10-11",
+     "green": 0.092,
+     "colored": 0.51,
+     "bare": 0.398
+    },
+    {
+     "date": "2026-10-12",
+     "green": 0.086,
+     "colored": 0.457,
+     "bare": 0.457
+    },
+    {
+     "date": "2026-10-13",
+     "green": 0.082,
+     "colored": 0.403,
+     "bare": 0.515
+    },
+    {
+     "date": "2026-10-14",
+     "green": 0.078,
+     "colored": 0.351,
+     "bare": 0.571
+    },
+    {
+     "date": "2026-10-15",
+     "green": 0.076,
+     "colored": 0.302,
+     "bare": 0.622
+    },
+    {
+     "date": "2026-10-16",
+     "green": 0.074,
+     "colored": 0.258,
+     "bare": 0.668
+    },
+    {
+     "date": "2026-10-17",
+     "green": 0.073,
+     "colored": 0.219,
+     "bare": 0.708
+    },
+    {
+     "date": "2026-10-18",
+     "green": 0.072,
+     "colored": 0.187,
+     "bare": 0.741
+    },
+    {
+     "date": "2026-10-19",
+     "green": 0.071,
+     "colored": 0.16,
+     "bare": 0.769
+    },
+    {
+     "date": "2026-10-20",
+     "green": 0.071,
+     "colored": 0.138,
+     "bare": 0.791
+    }
+   ]
+  },
+  {
+   "taxon_id": 54795,
+   "common": "sassafras",
+   "scientific": "Sassafras albidum",
+   "daily": [
+    {
+     "date": "2026-10-06",
+     "green": 0.694,
+     "colored": 0.282,
+     "bare": 0.024
+    },
+    {
+     "date": "2026-10-07",
+     "green": 0.624,
+     "colored": 0.35,
+     "bare": 0.026
+    },
+    {
+     "date": "2026-10-08",
+     "green": 0.55,
+     "colored": 0.422,
+     "bare": 0.028
+    },
+    {
+     "date": "2026-10-09",
+     "green": 0.475,
+     "colored": 0.494,
+     "bare": 0.031
+    },
+    {
+     "date": "2026-10-10",
+     "green": 0.406,
+     "colored": 0.56,
+     "bare": 0.034
+    },
+    {
+     "date": "2026-10-11",
+     "green": 0.344,
+     "colored": 0.616,
+     "bare": 0.04
+    },
+    {
+     "date": "2026-10-12",
+     "green": 0.293,
+     "colored": 0.661,
+     "bare": 0.046
+    },
+    {
+     "date": "2026-10-13",
+     "green": 0.25,
+     "colored": 0.694,
+     "bare": 0.056
+    },
+    {
+     "date": "2026-10-14",
+     "green": 0.218,
+     "colored": 0.714,
+     "bare": 0.068
+    },
+    {
+     "date": "2026-10-15",
+     "green": 0.194,
+     "colored": 0.722,
+     "bare": 0.084
+    },
+    {
+     "date": "2026-10-16",
+     "green": 0.175,
+     "colored": 0.719,
+     "bare": 0.106
+    },
+    {
+     "date": "2026-10-17",
+     "green": 0.162,
+     "colored": 0.705,
+     "bare": 0.133
+    },
+    {
+     "date": "2026-10-18",
+     "green": 0.153,
+     "colored": 0.68,
+     "bare": 0.167
+    },
+    {
+     "date": "2026-10-19",
+     "green": 0.147,
+     "colored": 0.644,
+     "bare": 0.209
+    },
+    {
+     "date": "2026-10-20",
+     "green": 0.142,
+     "colored": 0.599,
+     "bare": 0.259
+    }
+   ]
+  },
+  {
+   "taxon_id": 54763,
+   "common": "Norway maple",
+   "scientific": "Acer platanoides",
+   "daily": [
+    {
+     "date": "2026-10-06",
+     "green": 0.968,
+     "colored": 0.012,
+     "bare": 0.02
+    },
+    {
+     "date": "2026-10-07",
+     "green": 0.968,
+     "colored": 0.012,
+     "bare": 0.02
+    },
+    {
+     "date": "2026-10-08",
+     "green": 0.967,
+     "colored": 0.013,
+     "bare": 0.02
+    },
+    {
+     "date": "2026-10-09",
+     "green": 0.966,
+     "colored": 0.014,
+     "bare": 0.02
+    },
+    {
+     "date": "2026-10-10",
+     "green": 0.965,
+     "colored": 0.015,
+     "bare": 0.02
+    },
+    {
+     "date": "2026-10-11",
+     "green": 0.963,
+     "colored": 0.017,
+     "bare": 0.02
+    },
+    {
+     "date": "2026-10-12",
+     "green": 0.961,
+     "colored": 0.019,
+     "bare": 0.02
+    },
+    {
+     "date": "2026-10-13",
+     "green": 0.959,
+     "colored": 0.021,
+     "bare": 0.02
+    },
+    {
+     "date": "2026-10-14",
+     "green": 0.956,
+     "colored": 0.024,
+     "bare": 0.02
+    },
+    {
+     "date": "2026-10-15",
+     "green": 0.952,
+     "colored": 0.028,
+     "bare": 0.02
+    },
+    {
+     "date": "2026-10-16",
+     "green": 0.947,
+     "colored": 0.033,
+     "bare": 0.02
+    },
+    {
+     "date": "2026-10-17",
+     "green": 0.94,
+     "colored": 0.039,
+     "bare": 0.021
+    },
+    {
+     "date": "2026-10-18",
+     "green": 0.932,
+     "colored": 0.047,
+     "bare": 0.021
+    },
+    {
+     "date": "2026-10-19",
+     "green": 0.922,
+     "colored": 0.057,
+     "bare": 0.021
+    },
+    {
+     "date": "2026-10-20",
+     "green": 0.91,
+     "colored": 0.069,
+     "bare": 0.021
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,191 @@
+{
+ "total_results": 8,
+ "page": 1,
+ "per_page": 500,
+ "results": [
+  {
+   "count": 3883,
+   "taxon": {
+    "id": 49202,
+    "name": "Fagus grandifolia",
+    "rank": "species",
+    "rank_level": 10,
+    "ancestor_ids": [
+     48460,
+     47126,
+     211194,
+     47125,
+     47124,
+     47853,
+     47852,
+     49203,
+     49202
+    ],
+    "preferred_common_name": "American beech",
+    "is_active": true
+   }
+  },
+  {
+   "count": 3770,
+   "taxon": {
+    "id": 49658,
+    "name": "Liquidambar styraciflua",
+    "rank": "species",
+    "rank_level": 10,
+    "ancestor_ids": [
+     48460,
+     47126,
+     211194,
+     47125,
+     47124,
+     71289,
+     71434,
+     49661,
+     49658
+    ],
+    "preferred_common_name": "American sweetgum",
+    "is_active": true
+   }
+  },
+  {
+   "count": 2721,
+   "taxon": {
+    "id": 48098,
+    "name": "Acer rubrum",
+    "rank": "species",
+    "rank_level": 10,
+    "ancestor_ids": [
+     48460,
+     47126,
+     211194,
+     47125,
+     47124,
+     47729,
+     58321,
+     47727,
+     1466321,
+     48098
+    ],
+    "preferred_common_name": "red maple",
+    "is_active": true
+   }
+  },
+  {
+   "count": 2566,
+   "taxon": {
+    "id": 54795,
+    "name": "Sassafras albidum",
+    "rank": "species",
+    "rank_level": 10,
+    "ancestor_ids": [
+     48460,
+     47126,
+     211194,
+     47125,
+     47124,
+     48808,
+     48809,
+     54796,
+     54795
+    ],
+    "preferred_common_name": "sassafras",
+    "is_active": true
+   }
+  },
+  {
+   "count": 2224,
+   "taxon": {
+    "id": 54763,
+    "name": "Acer platanoides",
+    "rank": "species",
+    "rank_level": 10,
+    "ancestor_ids": [
+     48460,
+     47126,
+     211194,
+     47125,
+     47124,
+     47729,
+     58321,
+     47727,
+     1466315,
+     54763
+    ],
+    "preferred_common_name": "Norway maple",
+    "is_active": true
+   }
+  },
+  {
+   "count": 845,
+   "taxon": {
+    "id": 49005,
+    "name": "Quercus rubra",
+    "rank": "species",
+    "rank_level": 10,
+    "ancestor_ids": [
+     48460,
+     47126,
+     211194,
+     47125,
+     47124,
+     47853,
+     47852,
+     47851,
+     861029,
+     861036,
+     1549935,
+     1550123,
+     49005
+    ],
+    "preferred_common_name": "northern red oak",
+    "is_active": true
+   }
+  },
+  {
+   "count": 770,
+   "taxon": {
+    "id": 52543,
+    "name": "Acer saccharum",
+    "rank": "species",
+    "rank_level": 10,
+    "ancestor_ids": [
+     48460,
+     47126,
+     211194,
+     47125,
+     47124,
+     47729,
+     58321,
+     47727,
+     1419769,
+     1466282,
+     52543
+    ],
+    "preferred_common_name": "sugar maple",
+    "is_active": true
+   }
+  },
+  {
+   "count": 541,
+   "taxon": {
+    "id": 54802,
+    "name": "Nyssa sylvatica",
+    "rank": "species",
+    "rank_level": 10,
+    "ancestor_ids": [
+     48460,
+     47126,
+     211194,
+     47125,
+     47124,
+     47195,
+     532720,
+     54804,
+     54802
+    ],
+    "preferred_common_name": "Black Tupelo",
+    "is_active": true
+   }
+  }
+ ]
+}

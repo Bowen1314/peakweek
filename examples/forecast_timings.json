@@ -1,0 +1,21 @@
+{
+ "today": "2026-10-06",
+ "host": "ubuntu",
+ "timings": {
+  "new_brunswick": {
+   "wall_seconds": 56.9,
+   "model_seconds": 56.6,
+   "maxrss_mb_so_far": 665.3
+  },
+  "burlington": {
+   "wall_seconds": 51.0,
+   "model_seconds": 50.8,
+   "maxrss_mb_so_far": 665.8
+  },
+  "pittsburgh": {
+   "wall_seconds": 51.0,
+   "model_seconds": 50.8,
+   "maxrss_mb_so_far": 666.3
+  }
+ }
+}

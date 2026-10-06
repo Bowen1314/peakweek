@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>peakweek</title>
+<meta name="description" content="Which trees near you are turning color this weekend, and which day to go out.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 20C4 10 10 4 20 4c0 10-6 16-16 16z' fill='%23d2601a'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-view="search">
+<main class="wrap">
+  <header class="top">
+    <p class="brand"><svg class="leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20C4 10 10 4 20 4c0 10-6 16-16 16z"/><path class="rib" d="M4.5 19.5 15 9"/></svg>peakweek</p>
+    <p class="tag">Which trees near you are turning color this weekend, and which day to go out.</p>
+  </header>
+
+  <p id="mode-note" class="mode-note" hidden></p>
+
+  <section id="search" class="search" aria-label="Find a place">
+    <form id="search-form" autocomplete="off">
+      <label for="q">Where will you walk?</label>
+      <div class="row">
+        <input id="q" name="q" type="search" placeholder="Town, ST  or  40.49, -74.45" maxlength="120" required>
+        <button type="submit" class="btn primary">Find</button>
+      </div>
+    </form>
+    <p class="row2"><button id="locate" class="btn link" type="button">Use my location</button>
+      <span class="hint">Best in the US Northeast and Mid-Atlantic.</span></p>
+    <p id="search-msg" class="msg" role="status"></p>
+    <ul id="places" class="places" hidden></ul>
+  </section>
+
+  <section id="waiting" class="waiting" hidden aria-live="polite">
+    <svg class="leaf sway" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20C4 10 10 4 20 4c0 10-6 16-16 16z"/><path class="rib" d="M4.5 19.5 15 9"/></svg>
+    <p id="wait-place" class="wait-place"></p>
+    <p id="wait-what" class="wait-what"></p>
+    <p id="wait-time" class="wait-time"></p>
+  </section>
+
+  <section id="error" class="error" hidden role="alert">
+    <p id="error-msg"></p>
+    <p><button id="retry" class="btn" type="button">Try again</button> <button id="error-back" class="btn link" type="button">Another place</button></p>
+  </section>
+
+  <section id="result" hidden>
+    <div id="card"></div>
+    <div class="actions">
+      <button id="print" class="btn" type="button">Print card</button>
+      <button id="done" class="btn primary" type="button">Done &mdash; go outside</button>
+    </div>
+    <p class="again"><button id="again" class="btn link" type="button">Another place</button></p>
+  </section>
+
+  <section id="outside" class="outside" hidden>
+    <p id="out-when" class="out-when"></p>
+    <p id="out-headline" class="out-headline"></p>
+    <p class="out-bye">Screen off. Enjoy the walk.</p>
+    <button id="back" class="btn link" type="button">Show the card again</button>
+  </section>
+
+  <footer class="foot">
+    <p class="inat">After your walk, add what you saw to <a href="https://www.inaturalist.org/">iNaturalist</a>
+      with the &ldquo;Leaves&rdquo; annotation (green, colored or no live leaves). Those notes are the data this model learns from.</p>
+    <p class="attr"><strong>Built with PriorLabs-TabPFN</strong> (<a href="https://github.com/PriorLabs/TabPFN">TabPFN v2</a>, open weights, Prior Labs License).
+      <a href="https://open-meteo.com/">Weather data by Open-Meteo.com</a> (CC BY 4.0). Observations: iNaturalist observers.</p>
+  </footer>
+</main>
+<script src="app.js"></script>
+</body>
+</html>

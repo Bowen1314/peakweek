@@ -1,0 +1,26 @@
+{
+  "locked_at": "2026-10-06T14:33:00-04:00",
+  "selected_on": "validation split (train 2018-2023, n_train 2343; validate 2024, n 2582)",
+  "rule": "lowest validation log loss; ties broken by speed (rule stated before phase B)",
+  "baselines": {
+    "logreg_calendar": {"C": 10.0},
+    "logreg_all": {"C": 1.0, "features": "full"},
+    "hgb": {"learning_rate": 0.1, "max_leaf_nodes": 7, "max_iter": 50, "min_samples_leaf": 40,
+            "l2_regularization": 1.0, "features": "full"}
+  },
+  "best_baseline": "logreg_all",
+  "tabpfn_runs": {
+    "tabpfn": {"feature_set": "full", "strategy": "stratified", "n_context": 1000, "n_estimators": 4,
+               "n_subsamples": 3, "seed": 0, "floor": 8},
+    "tabpfn_calendar": {"feature_set": "calendar", "strategy": "stratified", "n_context": 1000, "n_estimators": 4,
+                        "n_subsamples": 3, "seed": 0, "floor": 8}
+  },
+  "validation_log_loss": {
+    "tabpfn_full_stratified_c1000_e4_s3": 0.4307,
+    "tabpfn_full_stratified_c1000_e4_s1": 0.4359,
+    "logreg_all_C1.0": 0.4305,
+    "logreg_calendar_C10.0": 0.4623,
+    "hgb_g4": 0.4754,
+    "climatology": 0.5608
+  }
+}

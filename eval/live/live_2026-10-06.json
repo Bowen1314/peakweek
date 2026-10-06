@@ -1,0 +1,105 @@
+{
+ "rows": "eval/live/rows_2026-10-06.csv",
+ "n": 99,
+ "n_train": 6650,
+ "label_counts": {
+  "green": 77,
+  "colored": 22,
+  "bare": 0
+ },
+ "date_range": [
+  "2026-09-26",
+  "2026-10-05"
+ ],
+ "models": {
+  "climatology": {
+   "n": 99,
+   "log_loss": 0.582624282020543,
+   "brier": 0.3718016791029125,
+   "accuracy": 0.7272727272727273
+  },
+  "logreg_calendar": {
+   "n": 99,
+   "log_loss": 0.4917141616830947,
+   "brier": 0.32221388480495894,
+   "accuracy": 0.797979797979798
+  },
+  "logreg_all": {
+   "n": 99,
+   "log_loss": 0.4360003722497203,
+   "brier": 0.2774864951017567,
+   "accuracy": 0.797979797979798
+  },
+  "hgb": {
+   "n": 99,
+   "log_loss": 0.4652781571918015,
+   "brier": 0.3051424067590315,
+   "accuracy": 0.7777777777777778
+  },
+  "tabpfn": {
+   "n": 99,
+   "log_loss": 0.45393598278492236,
+   "brier": 0.2876689253393907,
+   "accuracy": 0.7878787878787878,
+   "seconds": 53.2,
+   "config": {
+    "feature_set": "full",
+    "features": [
+     "species_code",
+     "lat",
+     "lon",
+     "elevation_m",
+     "doy",
+     "daylength_h",
+     "cdd20",
+     "frost0",
+     "frost5",
+     "tmin7",
+     "tmean14",
+     "prcp30",
+     "tanom"
+    ],
+    "strategy": "stratified",
+    "n_context": 1000,
+    "n_estimators": 4,
+    "n_subsamples": 3,
+    "seed": 0,
+    "floor": 8
+   }
+  }
+ },
+ "tabpfn_per_species": {
+  "red maple": {
+   "log_loss": 0.3639626868093775,
+   "n": 13
+  },
+  "northern red oak": {
+   "log_loss": 0.42490925150571834,
+   "n": 25
+  },
+  "American beech": {
+   "log_loss": 0.3256775605210364,
+   "n": 13
+  },
+  "sweetgum": {
+   "log_loss": 0.41881441453402013,
+   "n": 15
+  },
+  "sugar maple": {
+   "log_loss": 0.6633523018501921,
+   "n": 19
+  },
+  "Norway maple": {
+   "log_loss": 0.029628052810580528,
+   "n": 2
+  },
+  "sassafras": {
+   "log_loss": 0.5382065660953895,
+   "n": 8
+  },
+  "black gum": {
+   "log_loss": 0.525197301305185,
+   "n": 4
+  }
+ }
+}

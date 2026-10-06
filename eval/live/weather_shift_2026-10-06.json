@@ -1,0 +1,142 @@
+{
+ "window": [
+  "2026-09-01",
+  "2026-09-30"
+ ],
+ "rows": [
+  {
+   "place": "New Brunswick NJ",
+   "cell": "40.50_-74.50",
+   "var": "tmean",
+   "days": 30,
+   "mean_diff_fc_minus_era5": -0.01,
+   "mean_abs_diff": 0.28
+  },
+  {
+   "place": "New Brunswick NJ",
+   "cell": "40.50_-74.50",
+   "var": "tmin",
+   "days": 30,
+   "mean_diff_fc_minus_era5": -0.04,
+   "mean_abs_diff": 0.46
+  },
+  {
+   "place": "New Brunswick NJ",
+   "cell": "40.50_-74.50",
+   "var": "prcp",
+   "days": 30,
+   "mean_diff_fc_minus_era5": -0.68,
+   "mean_abs_diff": 4.36
+  },
+  {
+   "place": "Burlington VT",
+   "cell": "44.50_-73.50",
+   "var": "tmean",
+   "days": 30,
+   "mean_diff_fc_minus_era5": -0.06,
+   "mean_abs_diff": 0.44
+  },
+  {
+   "place": "Burlington VT",
+   "cell": "44.50_-73.50",
+   "var": "tmin",
+   "days": 30,
+   "mean_diff_fc_minus_era5": -0.82,
+   "mean_abs_diff": 1.0
+  },
+  {
+   "place": "Burlington VT",
+   "cell": "44.50_-73.50",
+   "var": "prcp",
+   "days": 30,
+   "mean_diff_fc_minus_era5": -2.24,
+   "mean_abs_diff": 2.27
+  },
+  {
+   "place": "Pittsburgh PA",
+   "cell": "40.50_-79.50",
+   "var": "tmean",
+   "days": 30,
+   "mean_diff_fc_minus_era5": 0.18,
+   "mean_abs_diff": 0.49
+  },
+  {
+   "place": "Pittsburgh PA",
+   "cell": "40.50_-79.50",
+   "var": "tmin",
+   "days": 30,
+   "mean_diff_fc_minus_era5": -0.17,
+   "mean_abs_diff": 0.71
+  },
+  {
+   "place": "Pittsburgh PA",
+   "cell": "40.50_-79.50",
+   "var": "prcp",
+   "days": 30,
+   "mean_diff_fc_minus_era5": -3.7,
+   "mean_abs_diff": 4.18
+  },
+  {
+   "place": "Boston MA",
+   "cell": "42.50_-71.50",
+   "var": "tmean",
+   "days": 30,
+   "mean_diff_fc_minus_era5": -0.15,
+   "mean_abs_diff": 0.4
+  },
+  {
+   "place": "Boston MA",
+   "cell": "42.50_-71.50",
+   "var": "tmin",
+   "days": 30,
+   "mean_diff_fc_minus_era5": -0.78,
+   "mean_abs_diff": 0.91
+  },
+  {
+   "place": "Boston MA",
+   "cell": "42.50_-71.50",
+   "var": "prcp",
+   "days": 30,
+   "mean_diff_fc_minus_era5": -3.18,
+   "mean_abs_diff": 3.37
+  },
+  {
+   "place": "Albany NY",
+   "cell": "42.50_-73.50",
+   "var": "tmean",
+   "days": 30,
+   "mean_diff_fc_minus_era5": -0.22,
+   "mean_abs_diff": 0.37
+  },
+  {
+   "place": "Albany NY",
+   "cell": "42.50_-73.50",
+   "var": "tmin",
+   "days": 30,
+   "mean_diff_fc_minus_era5": -0.39,
+   "mean_abs_diff": 0.75
+  },
+  {
+   "place": "Albany NY",
+   "cell": "42.50_-73.50",
+   "var": "prcp",
+   "days": 30,
+   "mean_diff_fc_minus_era5": -1.7,
+   "mean_abs_diff": 2.46
+  }
+ ],
+ "mean_by_var": {
+  "prcp": {
+   "mean_diff_fc_minus_era5": -2.3,
+   "mean_abs_diff": 3.33
+  },
+  "tmean": {
+   "mean_diff_fc_minus_era5": -0.05,
+   "mean_abs_diff": 0.4
+  },
+  "tmin": {
+   "mean_diff_fc_minus_era5": -0.44,
+   "mean_abs_diff": 0.77
+  }
+ }
+}
