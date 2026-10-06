@@ -7,8 +7,6 @@ on:
   schedule:
     - cron: "17 10 * * *"   # about 06:17 in New York (EDT); the build uses the New York date
   workflow_dispatch:
-  push:                     # TEMPORARY: test build on the development branch (dispatch needs the file on main)
-    branches: [pages-daily-site]
 
 permissions:
   contents: read

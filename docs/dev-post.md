@@ -45,7 +45,7 @@ And this is what **Print card** produces, one black-and-white page:
 
 ![The printed card for Burlington, VT](https://raw.githubusercontent.com/Bowen1314/peakweek/main/docs/screenshots/4-print-preview.png)
 
-There's no public deployment. Each forecast runs an open-weight model on a CPU for about a minute, and I'd rather you run it on your own laptop than wait in a queue on mine. The repo includes saved real forecasts for New Brunswick, Burlington and Pittsburgh, so you can open the full UI without installing the model:
+**Try it: [bowen1314.github.io/peakweek](https://bowen1314.github.io/peakweek/).** A forecast takes about a minute of CPU, so instead of a server there's a GitHub Actions job: every morning it fetches the weather and runs TabPFN once for each 1-degree grid cell of the region that has training data (103 cells), and GitHub Pages serves the cards. The page shows the card for the cell around the place you search, made at that cell's weather point, so it's a 1° approximation (a cell is about 110 × 80 km), and every card says which cell it's for and the day it was made. Before anything is published, the build re-runs a few cells through the ordinary single-point forecast and stops unless the numbers match. For your exact spot, run it locally. The repo also includes saved real forecasts for New Brunswick, Burlington and Pittsburgh, so you can open the full UI without installing the model:
 
 ```bash
 python3 server.py --fixture examples/forecast_new_brunswick.json   # http://127.0.0.1:8770/

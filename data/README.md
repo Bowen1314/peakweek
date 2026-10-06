@@ -103,6 +103,14 @@ All seasonal windows start on Sep 1 and end the day before the observation.
 | 2025 | 789 | 862 | 74 | 1725 |
 | **all** | 3457 | 2846 | 347 | 6650 |
 
+## nearby_cells.json (the daily site's local check)
+
+For each of the 103 grid cells the daily site publishes (cells with training observations), the number of
+research-grade, verifiable iNaturalist observations of each of the 8 species within 50 km of the cell's weather
+point (`api.inaturalist.org/v1/observations/species_counts`, one keyless call per cell, fetched once on
+2026-10-06 by `scripts/build_nearby.py`). Aggregate counts only; the daily build reads this file and never
+calls iNaturalist.
+
 ## Attribution
 
 Observations: iNaturalist contributors, each under the license in `license_code`
