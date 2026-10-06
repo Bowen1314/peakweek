@@ -36,10 +36,11 @@ TabPFN v2 weights on a plain CPU. The answer is one card you can print, and then
   rows in one batch (the shared context does not depend on the place). Before publishing, each build re-runs
   4 cells through the ordinary single-point `forecast(lat, lon)` and stops unless every probability matches
   the batch within 1e-5 with identical verdicts and headline (`data/check.json` on the site).
-  On the free 4-core GitHub runner the first build (2026-10-06) took 16.5 minutes in all: about 2 minutes of
-  weather (10 multi-location Open-Meteo requests), 10.3 minutes for TabPFN to predict all 12,360 rows
-  (103 cells x 8 species x 15 days, peak memory about 950 MB) and 2.5 minutes for the check (4 single-point
-  forecasts, about 38 s each). The largest difference between batch and single-point probabilities was 0.
+  On the free 4-core GitHub runner the two builds on 2026-10-06 took 16.5 and 7.3 minutes in all (runner
+  speed varies): about 2 minutes of weather (10 multi-location Open-Meteo requests), 10.3 and 3.1 minutes
+  for TabPFN to predict all 12,360 rows (103 cells x 8 species x 15 days, peak memory about 900-950 MB) and
+  2.5 and 0.7 minutes for the check (4 single-point forecasts). The largest difference between batch and
+  single-point probabilities was 0 both times.
 - `python3 scripts/build_site.py --fake --out /tmp/site` builds the whole site with synthetic weather and a
   fake classifier (no model, no network, marked synthetic on every card), to check the page.
 
