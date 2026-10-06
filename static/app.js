@@ -156,8 +156,10 @@ const PeakweekStatic = (function () {
     const index = await loadIndex();
     const where = name || (lat.toFixed(2) + ", " + lon.toFixed(2));
     if (!S.inRegion(index.region, lat, lon)) {
-      throw new Error(where + " is outside the area this site forecasts. " + index.region_note +
-        " The daily forecasts here cover only that area; try a place inside it.");
+      const r = index.region;
+      throw new Error(where + " is outside the area this site covers: the US Northeast and Mid-Atlantic (latitude " +
+        r.lat_min + " to " + r.lat_max + ", longitude " + r.lon_min + " to " + r.lon_max + "), where the model's " +
+        "training data comes from. Try a place inside that area.");
     }
     const cell = S.findCell(index.cells, lat, lon);
     if (!cell) {
@@ -186,9 +188,8 @@ const PeakweekStatic = (function () {
   async function loadInfo() {
     try { info = await apiGet("/api/info"); } catch (_) { return; }
     if (info.mode === "static") {
-      let text = "Forecasts made " + info.today_label + " (New York date). To run without a server, the model " +
-        "forecasts once every morning for each 1\u00b0 grid cell (about 110 by 80 km) of the area; your card is " +
-        "for the cell around your place, not your exact spot. Updated daily.";
+      let text = "Forecasts made " + info.today_label + ", updated every morning: one per 1\u00b0 grid cell " +
+        "(about 110 by 80 km), so your card is for the cell around your place, not your exact spot.";
       const now = newYorkToday();
       if (now && info.today && (Date.parse(now) - Date.parse(info.today)) / 864e5 >= 2) {
         text += " The daily update has not run since " + info.today_label + ", so this forecast is out of date.";
