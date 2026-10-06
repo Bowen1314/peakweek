@@ -176,9 +176,16 @@ def archive_daily(lat: float, lon: float, start: dt.date, end: dt.date) -> pd.Da
         "daily": ",".join(DAILY_VARS), "timezone": config.TIMEZONE,
     }
     n_days = (end - start).days + 1
-    path = _cache_dir() / "archive" / f"{_fmt(lat)}_{_fmt(lon)}_{start}_{end}.json"
-    js = _get_json_cached(ARCHIVE_URL, params, path, weighted_cost(n_days), "archive")
+    js = _get_json_cached(ARCHIVE_URL, params, _archive_path(lat, lon, start, end), weighted_cost(n_days), "archive")
     return _daily_frame(js)
+
+
+def _archive_path(lat: float, lon: float, start: dt.date, end: dt.date) -> Path:
+    return _cache_dir() / "archive" / f"{_fmt(lat)}_{_fmt(lon)}_{start}_{end}.json"
+
+
+def _forecast_path(lat: float, lon: float, past_days: int, forecast_days: int, run_date: dt.date) -> Path:
+    return _cache_dir() / "forecast" / f"{_fmt(lat)}_{_fmt(lon)}_{past_days}_{forecast_days}_{run_date}.json"
 
 
 def forecast_daily(lat: float, lon: float, past_days: int = 92, forecast_days: int = 16,
@@ -189,7 +196,7 @@ def forecast_daily(lat: float, lon: float, past_days: int = 92, forecast_days: i
         "latitude": _fmt(lat), "longitude": _fmt(lon), "past_days": past_days,
         "forecast_days": forecast_days, "daily": ",".join(DAILY_VARS), "timezone": config.TIMEZONE,
     }
-    path = _cache_dir() / "forecast" / f"{_fmt(lat)}_{_fmt(lon)}_{past_days}_{forecast_days}_{run_date}.json"
+    path = _forecast_path(lat, lon, past_days, forecast_days, run_date)
     js = _get_json_cached(FORECAST_URL, params, path, weighted_cost(past_days + forecast_days), "forecast")
     return _daily_frame(js)
 
@@ -212,9 +219,7 @@ def app_daily(lat: float, lon: float, today: dt.date, past_days: int = 92, forec
     ~2.3 mm/day lower and Tmin ~0.4 C lower than ERA5 at five training weather points
     (eval/weather_shift.py), so the past part of the season comes from the archive as in training."""
     fc = forecast_daily(lat, lon, past_days, forecast_days, run_date=today)
-    season = dt.date(today.year, *config.SEASON_START)
-    start = season if today > season else today - dt.timedelta(days=30)
-    end = today - dt.timedelta(days=1)
+    start, end = archive_window(today)
     try:
         ar = archive_daily(lat, lon, start, end)
     except (RuntimeError, OSError) as e:  # archive unavailable: fall back to forecast-API history only
@@ -222,6 +227,78 @@ def app_daily(lat: float, lon: float, today: dt.date, past_days: int = 92, forec
     have = ar.dropna(subset=["tmean", "tmin", "prcp"], how="all")
     meta = {"archive_from": str(start), "archive_through": str(have["date"].max().date()) if len(have) else None}
     return merge_history(ar, fc), meta
+
+
+def archive_window(today: dt.date) -> tuple[dt.date, dt.date]:
+    """The archive days app_daily() asks for: Sep 1 (season start) .. yesterday."""
+    season = dt.date(today.year, *config.SEASON_START)
+    start = season if today > season else today - dt.timedelta(days=30)
+    return start, today - dt.timedelta(days=1)
+
+
+def _split_many(js, points: Sequence[tuple[float, float]], max_off: float = 0.3) -> list[dict]:
+    """A multi-location Open-Meteo response (a list in request order; a dict for one location) -> one
+    response per requested point. Each returned grid point must lie within max_off degrees of its own
+    request (Open-Meteo snaps to its model grid, at most ~0.15 deg away), so a short or out-of-order
+    answer fails loudly instead of giving a place another place's weather."""
+    items = js if isinstance(js, list) else [js]
+    if len(items) != len(points):
+        raise RuntimeError(f"Open-Meteo returned {len(items)} locations for {len(points)} requested")
+    for i, (item, (lat, lon)) in enumerate(zip(items, points)):
+        glat, glon = float(item["latitude"]), float(item["longitude"])
+        if abs(glat - lat) > max_off or abs(glon - lon) > max_off:
+            raise RuntimeError(f"Open-Meteo location {i}: asked {lat},{lon}, got {glat},{glon}")
+        if "daily" not in item:
+            raise RuntimeError(f"Open-Meteo location {i}: no daily data")
+    return items
+
+
+def _write_cache(path: Path, item: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_suffix(".tmp")
+    tmp.write_text(json.dumps(item))
+    tmp.replace(path)
+
+
+def prefetch_app_daily(points: Sequence[tuple[float, float]], today: dt.date, past_days: int = 92,
+                       forecast_days: int = 16, batch: int = 25, log=print) -> dict:
+    """Fetch app_daily()'s weather for many points with multi-location requests (comma-separated
+    latitude/longitude lists) and store each location's part at the exact per-location cache path
+    forecast_daily() / archive_daily() read. A later app_daily(lat, lon, today) for any of these points
+    is then served from the cache: the same data the single-point path would use.
+
+    Requests are throttled and retried by _get_json_cached (429 backoff, 5xx/network retries). Any
+    failure raises: the caller (the daily site build) must not publish a partial forecast."""
+    pts = sorted({(round(float(a), 4), round(float(b), 4)) for a, b in points})
+    start, end = archive_window(today)
+    n_archive = (end - start).days + 1
+    jobs = [
+        ("forecast", FORECAST_URL, past_days + forecast_days,
+         lambda a, b: _forecast_path(a, b, past_days, forecast_days, today),
+         {"past_days": past_days, "forecast_days": forecast_days}),
+        ("archive", ARCHIVE_URL, n_archive,
+         lambda a, b: _archive_path(a, b, start, end),
+         {"start_date": start.isoformat(), "end_date": end.isoformat()}),
+    ]
+    stats = {"points": len(pts), "requests": 0, "weight": 0.0, "archive_from": str(start), "archive_to": str(end)}
+    for api, url, n_days, path_of, extra in jobs:
+        todo = [p for p in pts if not path_of(*p).exists()]
+        for i in range(0, len(todo), batch):
+            chunk = todo[i:i + batch]
+            params = {"latitude": ",".join(_fmt(a) for a, _ in chunk),
+                      "longitude": ",".join(_fmt(b) for _, b in chunk),
+                      **extra, "daily": ",".join(DAILY_VARS), "timezone": config.TIMEZONE}
+            key = hashlib.sha1(json.dumps(params, sort_keys=True).encode()).hexdigest()[:16]
+            weight = weighted_cost(n_days, n_locations=len(chunk))
+            js = _get_json_cached(url, params, _cache_dir() / "multi" / f"{api}_{key}.json", weight,
+                                  f"{api}[{len(chunk)}]")
+            for (a, b), item in zip(chunk, _split_many(js, chunk)):
+                _write_cache(path_of(a, b), item)
+            stats["requests"] += 1
+            stats["weight"] += weight
+            log(f"weather: {api} {min(i + batch, len(todo))}/{len(todo)} locations")
+    stats["weight"] = round(stats["weight"], 1)
+    return stats
 
 
 def _tz():

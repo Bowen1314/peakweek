@@ -10,6 +10,39 @@ TabPFN v2 weights on a plain CPU. The answer is one card you can print, and then
 
 *The waiting part (about a minute of TabPFN on a 4-core CPU) is sped up in the GIF. Full video: [docs/demo.mp4](docs/demo.mp4).*
 
+## Live site
+
+**<https://bowen1314.github.io/peakweek/>**: search a town or press **Use my location**; nothing to install.
+
+- **Updated daily.** Every morning (around 10:20 UTC, about 6:20 in New York) a GitHub Actions job
+  (`.github/workflows/pages.yml`, `scripts/build_site.py`) fetches this season's weather from Open-Meteo, runs
+  TabPFN once on the runner's CPU for every grid cell below, and publishes the cards to GitHub Pages. There is
+  no server: the page finds the cell around your place in `data/index.json` and shows that cell's card. "Today"
+  is the New York date. If a build fails (for example the weather API is down), nothing is published and the
+  site keeps the previous day's cards; every card says the day it was made.
+- **1-degree grid approximation.** One forecast per 1-degree grid cell (about 110 x 80 km), the same cells the
+  weather already comes from. A cell's forecast is made at its *weather point*: the mean coordinate of the
+  cell's training observations, i.e. the point the model's weather for that cell has always come from, with
+  that point's elevation (Open-Meteo elevation API). The "rarely recorded within 50 km" check is also for that
+  point (iNaturalist, counted once on 2026-10-06: `data/nearby_cells.json`, `scripts/build_nearby.py`). The
+  card names the place you searched and says so, for example "Forecast made Wed, Oct 7 for the 1° grid cell
+  around 40.59, -74.45; updated daily." For your exact spot (your own elevation and local tree check), run it
+  locally.
+- **Which cells.** A cell gets a forecast if the training data has observations in it: 103 of the 150 cells
+  that touch the region. The other 47 have no observation at all (open Atlantic and Gulf of Maine, and
+  thinly populated land along the edge of the box in northern Maine, Quebec and Ontario); the page says there
+  is no forecast there. Outside the region the page says so instead of extrapolating.
+- **Same model, same numbers.** The model is fitted once with the locked settings and predicts all cells'
+  rows in one batch (the shared context does not depend on the place). Before publishing, each build re-runs
+  4 cells through the ordinary single-point `forecast(lat, lon)` and stops unless every probability matches
+  the batch within 1e-5 with identical verdicts and headline (`data/check.json` on the site).
+  On the free 4-core GitHub runner the first build (2026-10-06) took 16.5 minutes in all: about 2 minutes of
+  weather (10 multi-location Open-Meteo requests), 10.3 minutes for TabPFN to predict all 12,360 rows
+  (103 cells x 8 species x 15 days, peak memory about 950 MB) and 2.5 minutes for the check (4 single-point
+  forecasts, about 38 s each). The largest difference between batch and single-point probabilities was 0.
+- `python3 scripts/build_site.py --fake --out /tmp/site` builds the whole site with synthetic weather and a
+  fake classifier (no model, no network, marked synthetic on every card), to check the page.
+
 ## How the forecast works
 
 peakweek answers "if someone photographs a red maple near me on Saturday, will its leaves be green,
@@ -113,7 +146,8 @@ API (all `GET`, JSON): `/api/geocode?q=`, `/api/forecast?lat=&lon=&name=` (start
 **Tests** (no network, no model): `python3 -m unittest discover -s tests -t .` (the core's tests need numpy,
 pandas and scikit-learn; one test runs real TabPFN only when `PEAKWEEK_RUN_TABPFN=1`).
 The app's tests are `tests/test_verdict.py`, `test_card.py`, `test_geocode.py`, `test_nearby.py`, `test_cli.py`
-and `test_server.py`.
+and `test_server.py`; the daily site's are `test_site.py` and `test_static_mode.py` (the page's static-mode
+helpers run under node, if installed, and are compared with the Python they mirror).
 
 **Demo screenshots, GIF and video** (needs Google Chrome and ffmpeg):
 
@@ -160,13 +194,16 @@ summarizes them, using the forecast's own dates (never the clock), so a saved fo
 
 ```
 server.py                 local web server + JSON API (stdlib only; TabPFN imported lazily)
-static/                   the page (no external assets)
+static/                   the page (no external assets; static mode for the GitHub Pages site)
 peakweek/                 species, inat, weather, features, dataset, model, baselines, metrics, forecast   (core)
                           verdict, card, fieldnotes, geocode, nearby, cli                                  (app)
+                          site (the daily static site: cells, batch forecast, batch = single check)
 data/                     observations.csv, features.csv, climatology.csv + README (provenance, filters, counts)
+                          nearby_cells.json (iNaturalist 50 km counts per published cell, fetched once)
+.github/workflows/        pages.yml: daily build + GitHub Pages deploy
 eval/                     backtest.py, live_check.py, RESULTS.md (every run), locked.json, runs.jsonl, preds/
 examples/                 saved real forecasts (New Brunswick, Burlington, Pittsburgh) + a synthetic test fixture
-scripts/                  build_dataset.py, make_examples.py, record_demo.mjs
+scripts/                  build_dataset.py, build_site.py, build_nearby.py, make_examples.py, record_demo.mjs
 licenses/, NOTICE         TabPFN v2 license and attributions
 ```
 

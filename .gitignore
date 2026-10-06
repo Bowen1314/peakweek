@@ -9,3 +9,9 @@ eval/live/preds_*.csv
 .DS_Store
 node_modules/
 PROGRESS.md
+
+# daily site build outputs (scripts/build_site.py, .github/workflows/pages.yml)
+_site/
+_site.partial/
+build-report/
+.tabpfn-models/
